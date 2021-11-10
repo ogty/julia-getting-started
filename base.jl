@@ -1,3 +1,6 @@
+using Dates
+
+
 # if
 osbit = Sys.WORD_SIZE
 if osbit == 64
@@ -31,9 +34,9 @@ println(z.a) # Alice
 
 
 # unpacking return values
-function vectormax(data::Vector{Int64})
-    max = first(data)
+function vectorminmax(data::Vector{Int64})
     min = first(data)
+    max = first(data)
 
     for i in data
         if i > max
@@ -42,10 +45,60 @@ function vectormax(data::Vector{Int64})
             min = i
         end
     end
-    return max, min
+    return min, max
 end
 
 data = [1, 2, 3, 4, 5]
-max, min = vectormax(data)
-println(max) # 5
+min, max = vectorminmax(data)
 println(min) # 1
+println(max) # 5
+
+
+# argument destructuring
+minmax(x, y) = (y < x) ? (y, x) : (x, y)
+range((min, max)) = max - min
+
+result1 = range(minmax(10, 5))
+result2 = range(minmax(5, 15))
+
+println(result1) # 5
+println(result2) # 10
+
+
+# keyword arguments and optional arguments
+# The following is a subtle example...
+
+# convert abbreviations
+function convabb(month=Dates.format(Dates.now(), "mm"), etc...)
+    result = []
+    months = Dict{Int64, String}(
+    1=>"Jan", 2=>"Feb", 3=>"Mar",
+    4=>"Apr", 5=>"May", 6=>"Jun",
+    7=>"Jul", 8=>"Aug", 9=>"Sep",
+    10=>"Oct", 11=>"Nov", 12=>"Dec"
+    )
+
+    if typeof(month) == String
+        month = parse(Int, month)
+    end
+    for i in etc
+        push!(result, months[i])
+    end
+
+    println(month, etc)
+    push!(result, months[month])
+    return result
+end
+
+months = [1, 2]
+result1 = convabb(3)             # 3()
+result2 = convabb(7, 8)          # 7(8,)
+result3 = convabb(10, months...) # 10(1, 2)
+
+println(result1) # ["Mar"] 
+println(result2) # ["Jul", "Aug"] 
+println(result3) # ["Oct", "Jan", "Feb"]
+
+month = Dates.format(Dates.now(), "mm")
+println(convabb())      # ["Nov"]
+println(convabb(month)) # ["Nov"]
