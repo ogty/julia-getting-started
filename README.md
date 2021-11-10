@@ -6,15 +6,15 @@
 
 ***
 
-### Package Install
+## Package Install
 
 ```bash
-$ julia package_install.jl
+$ julia install.jl
 ```
 
 ***
 
-### Run in Jupyter
+## Run in Jupyter
 
 Setup
 
