@@ -12,7 +12,7 @@ function scraping()
     sources = eachmatch(sel".greenFin", html.root)
     for source in sources
         data = Gumbo.text(source)
-        data = replace.(data, ","=>"")
+        data = replace.(data, "," => "")
         data = parse(Float64, data)
         push!(result, data)
     end

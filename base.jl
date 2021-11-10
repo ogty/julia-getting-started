@@ -65,17 +65,19 @@ println(result1) # 5
 println(result2) # 10
 
 
-# keyword arguments and optional arguments
+# varargs functions and optional arguments
 # The following is a subtle example...
 
 # convert abbreviations
-function convabb(month=Dates.format(Dates.now(), "mm"), etc...)
+today = Dates.today()
+nowmonth = Dates.format(today, "mm")
+function convabb(month=nowmonth, etc...)
     result = []
     months = Dict{Int64, String}(
-    1=>"Jan", 2=>"Feb", 3=>"Mar",
-    4=>"Apr", 5=>"May", 6=>"Jun",
-    7=>"Jul", 8=>"Aug", 9=>"Sep",
-    10=>"Oct", 11=>"Nov", 12=>"Dec"
+    1  => "Jan", 2  => "Feb", 3  => "Mar",
+    4  => "Apr", 5  => "May", 6  => "Jun",
+    7  => "Jul", 8  => "Aug", 9  => "Sep",
+    10 => "Oct", 11 => "Nov", 12 => "Dec"
     )
 
     if typeof(month) == String
@@ -102,3 +104,20 @@ println(result3) # ["Oct", "Jan", "Feb"]
 month = Dates.format(Dates.now(), "mm")
 println(convabb())      # ["Nov"]
 println(convabb(month)) # ["Nov"]
+
+
+# keyword arguments
+function classborder(class; style="solid", width="1", color="black")
+    result = """
+    .$(class) {
+        border: $style $(width)px $color;     
+    }
+    """
+    println(result)
+end
+
+classborder("main", color="red")
+
+# .main {
+#     border: solid 1px red;
+# }
