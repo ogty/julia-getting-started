@@ -22,7 +22,7 @@ Setup
 $ julia
 julia> ]
 (@v1.x) pkg> add IJulia
-(@v1.x) pkg> # press delete key
+(@v1.x) pkg> # press backspace
 julia> using IJulia
 julia> notebook()
 ```
