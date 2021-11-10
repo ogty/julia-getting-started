@@ -8,7 +8,6 @@ else
     println("Who are you?")
 end
 
-
 # equal: maximum
 function vectormax(data::Vector{Int64})
     max = first(data)
