@@ -10,7 +10,7 @@ copied = SubString(hello, 1, 5) # Hello
 
 # replace
 name1 = "Julia"
-name2 = replace.(name1, "a"=>"e")
+name2 = replace(name1, "a"=>"e")
 println(name1) # Julia
 println(name2) # Julie
 

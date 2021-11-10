@@ -8,4 +8,12 @@ result = map([-10, 0, 20]) do x
     end
 end
 
-print(result) # [0, 1, 20]
+println(result) # [0, 1, 20]
+
+
+
+f(x,y) = 3x + 4y;
+A = [1.0, 2.0, 3.0];
+B = [4.0, 5.0, 6.0];
+println(f.(A, B))
+println(f(A, B))

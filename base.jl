@@ -121,3 +121,21 @@ classborder("main", color="red")
 # .main {
 #     border: solid 1px red;
 # }
+
+
+# do-block syntax for function arguments
+result = map([7, 18, 50]) do x
+    if 77 <= x
+        return "Old age"
+    elseif 46 <= x <= 76
+        return "Middle age"
+    elseif 18 <= x <= 45
+        return "Youth"
+    elseif 6 <= x <= 17
+        return "Boy"
+    else
+         return "Childhood"
+    end
+end
+
+println(result) # ["Boy", "Youth", "Middle age"]
