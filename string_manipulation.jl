@@ -39,7 +39,7 @@ julia = """
 println(julia)
 
 
-# alphabetical order
+# alphabetical order and comparison
 println("Alice" < "Bob") # true
 println(name1 == name2)  # false
  
