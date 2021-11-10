@@ -26,7 +26,7 @@ println("1 + 2 = $(1 + 2)")
 
 
 # triple-quoted string literals
-"""
+julia = """
                _
    _       _ _(_)_    
   (_)     | (_) (_)  
@@ -36,6 +36,7 @@ println("1 + 2 = $(1 + 2)")
  _/ ||__'_|_|_||__'_|
 |__/
 """
+println(julia)
 
 
 # alphabetical order
