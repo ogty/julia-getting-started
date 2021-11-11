@@ -2,7 +2,8 @@
 
 [Downloads](https://julialang.org/downloads/)  
 [Documentation jp](https://mnru.github.io/julia-doc-ja-v1.0/index.html)  
-[Documentation en](https://docs.julialang.org/en/v1/)
+[Documentation en](https://docs.julialang.org/en/v1/)  
+[Unicode Mathematical Operators](http://www.asahi-net.or.jp/~ax2s-kmtn/ref/unicode/u2200.html)
 
 ***
 
