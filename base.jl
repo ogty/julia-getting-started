@@ -158,3 +158,53 @@ println("One type below '$(xxtype)' is '$(xxxtype)'")
 # nothing type
 result = findfirst("x", "Hello Julia!")
 println(result) # nothing
+
+
+# composite types
+struct MyCalc
+    data::Vector{Int64}
+end
+
+function mysum(mc::MyCalc)
+    result = 0
+    for i in mc.data
+        result += i
+    end
+    return result
+end
+
+function mymean(mc::MyCalc)
+    result = mysum(mc) / length(mc.data)
+    return result
+end
+
+data = [1, 2, 3, 4, 5]
+mc = MyCalc(data)
+
+println(mysum(mc))  # 15
+println(mymean(mc)) # 3.0
+
+
+mutable struct MyCalc2
+    data::Vector{Int64}
+end
+
+function mysum2(mc::MyCalc2)
+    result = 0
+    for i in mc.data
+        result += i
+    end
+    push!(mc.data, result)
+    return result
+end
+
+function mymean2(mc::MyCalc2)
+    result = mysum2(mc) / length(mc.data)
+    return result
+end
+
+data = [2, 4, 5, 6, 7]
+mc = MyCalc2(data)
+
+println(mysum2(mc))  # 24
+println(mymean2(mc)) # 6.857142857142857
