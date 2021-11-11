@@ -5,12 +5,17 @@ println(hello[end]) # !
 
 
 # copy
-copied = SubString(hello, 1, 5) # Hello
+copied = SubString(hello, 1, 5)
+println(copied) # Hello
+
+lang = "JuliaLang"
+println(startswith(lang, "Julia")) # true
+println(endswith(lang, "Lang"))    # true
 
 
 # replace
 name1 = "Julia"
-name2 = replace(name1, "a"=>"e")
+name2 = replace(name1, "a" => "e")
 println(name1) # Julia
 println(name2) # Julie
 
