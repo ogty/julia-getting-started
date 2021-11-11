@@ -19,7 +19,7 @@ println("x \\ y  = $(x \ y)")
 println("x ^ y  = $(y ^ x)")
 println("x % y  = $(x % y)")
 println("x < y  = $(x < y)")
-println("x <= y = $(x <= y)") # ≤
+println("x <= y = $(x <= y)") # x ≤ y
 println("x > y  = $(x > y)") 
 println("x >= y = $(x >= y)") # x ≥ y
 println("!true  = $(!t)")
