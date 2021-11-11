@@ -3,6 +3,9 @@ using Cascadia
 using Plots
 using Distributions
 using StatsPlots
+using PyCall
+
+const range = py"range"
 
 
 function scraping()
@@ -10,9 +13,8 @@ function scraping()
     url = "https://info.finance.yahoo.co.jp/ranking/?kd=1&tm=d&mk=1"
     html = parsehtml(read(download(url), String))
     sources = eachmatch(sel".greenFin", html.root)
-    for source in sources
-        data = Gumbo.text(source)
-        data = replace(data, "," => "")
+    for i in range(1, length(sources), 2)
+        data = Gumbo.text(sources[i])
         data = parse(Float64, data)
         push!(result, data)
     end
@@ -20,6 +22,12 @@ function scraping()
 end
 
 result = scraping()
-result = sort!(result)
-plot(result, st=:bar)
-savefig("./img/price_increase_bar.png")
+result = sort!(result, rev=true)
+
+bar(result,
+    title="Distribution of the top 50 rate of increase",
+    xlabel="Distribution", 
+    ylabel="Rate of increase", 
+    legend=false)
+
+savefig("./img/rate_of_increase.png")

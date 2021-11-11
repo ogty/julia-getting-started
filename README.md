@@ -33,3 +33,23 @@ Run
 ```
 $ jupyter notebook
 ```
+
+***
+
+## Scraping Runtime
+
+Julia Only
+```
+3.578908 seconds
+2.34 M allocations: 141.620 MiB, 
+1.06% gc time, 
+3.30% compilation time
+```
+
++Python
+```
+0.587334 seconds
+199.94 k allocations: 11.887 MiB,
+1.38% gc time,
+4.00% compilation time
+```
