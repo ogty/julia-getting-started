@@ -139,3 +139,22 @@ result = map([7, 18, 50]) do x
 end
 
 println(result) # ["Boy", "Youth", "Middle age"]
+
+
+# examine the hierarchical relationship of types
+x = 10
+xtype = typeof(x)          # this
+xxtype = supertype(xtype)  # above
+xxxtype = subtypes(xxtype) # below
+
+println("The type of this value is '$(xtype)'")
+println("The type one above '$(xtype)' is '$(xxtype)'")
+println("One type below '$(xxtype)' is '$(xxxtype)'")
+# The type of this value is 'Int64'
+# The type one above 'Int64' is 'Signed'
+# One type below 'Signed' is 'Any[BigInt, Int128, Int16, Int32, Int64, Int8]'
+
+
+# nothing type
+result = findfirst("x", "Hello Julia!")
+println(result) # nothing
