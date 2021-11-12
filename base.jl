@@ -142,6 +142,13 @@ println(result) # ["Boy", "Youth", "Middle age"]
 
 
 # examine the hierarchical relationship of types
+"""
+Currently, for some reason, 
+subtypes is not available, 
+so I have commented it out.
+
+It works in REPL.
+"""
 x = 10
 xtype = typeof(x)          # this
 xxtype = supertype(xtype)  # above
@@ -240,7 +247,7 @@ function mysum(mc::MyCalc3{Vector{Int64}})
 end
 
 function mysum(mc::MyCalc3{Vector{Float64}})
-    result = 0
+    result = 0.0
     for i in mc.data
         result += i
     end
