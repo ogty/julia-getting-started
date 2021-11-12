@@ -9,3 +9,6 @@ Plots
 Distributions
 CSV
 DataFrames
+Lathe
+StatsModels
+GLM
