@@ -29,8 +29,12 @@ println(data10x) # [100, 200, 300]
 
 
 # named tuples
-z = (a="Alice", b="Bob")
-println(z.a) # Alice
+z = (a="Alice", b="Bob", c="Callie")
+println(z.a)       # Alice
+println(z[2])      # Bob
+println(z[:c])     # Callie
+println(keys(z))   # (:a, :b, :c)
+println(values(z)) # ("Alice", "Bob", "Callie")
 
 
 # unpacking return values
@@ -71,7 +75,7 @@ println(result2) # 10
 # convert abbreviations
 today = Dates.today()
 nowmonth = Dates.format(today, "mm")
-function convabb(month=nowmonth, etc...)
+function convabb1(month=nowmonth, etc...)
     result = []
     months = Dict{Int64, String}(
     1  => "Jan", 2  => "Feb", 3  => "Mar",
@@ -93,17 +97,17 @@ function convabb(month=nowmonth, etc...)
 end
 
 months = [1, 2]
-result1 = convabb(3)             # 3()
-result2 = convabb(7, 8)          # 7(8,)
-result3 = convabb(10, months...) # 10(1, 2)
+result1 = convabb1(3)             # 3()
+result2 = convabb1(7, 8)          # 7(8,)
+result3 = convabb1(10, months...) # 10(1, 2)
 
 println(result1) # ["Mar"] 
 println(result2) # ["Jul", "Aug"] 
 println(result3) # ["Oct", "Jan", "Feb"]
 
 month = Dates.format(Dates.now(), "mm")
-println(convabb())      # ["Nov"]
-println(convabb(month)) # ["Nov"]
+println(convabb1())      # ["Nov"]
+println(convabb1(month)) # ["Nov"]
 
 
 # keyword arguments
@@ -117,7 +121,6 @@ function classborder(class; style="solid", width="1", color="black")
 end
 
 classborder("main", color="red")
-
 # .main {
 #     border: solid 1px red;
 # }
@@ -160,6 +163,9 @@ println("The type one above '$(xtype)' is '$(xxtype)'")
 # The type of this value is 'Int64'
 # The type one above 'Int64' is 'Signed'
 # One type below 'Signed' is 'Any[BigInt, Int128, Int16, Int32, Int64, Int8]'
+
+println(xtype <: Number)  # true
+println(xxtype >: Number) # false
 
 
 # nothing type
@@ -226,50 +232,42 @@ uniontype("Bob") # String
 
 
 # parametric type
-mutable struct MyCalc3{T}
+mutable struct Convabb{T}
     data::T
 end
 
-# function mysum(mc::MyCalc3{T}) where T
-#     result = 0
-#     for i in mc.data
-#         result += i
-#     end
-#     return result
-# end
+function convabb2(ca::Convabb{String})::Int64
+    months = Dict{String, Int64}(
+    "Jan" => 1,  "Feb" => 2,  "Mar" => 3,
+    "Apr" => 4,  "May" => 5,  "Jun" => 6,
+    "Jul" => 7,  "Aug" => 8,  "Sep" => 9,
+    "Oct" => 10, "Nov" => 11, "Dec" => 12
+    )
 
-function mysum(mc::MyCalc3{Vector{Int64}})
-    result = 0
-    for i in mc.data
-        result += i
-    end
-    return result
+    return months[ca.data]
+end
+function convabb2(ca::Convabb{Int64})::String
+    months = Dict{Int64, String}(
+        1  => "Jan", 2  => "Feb", 3  => "Mar",
+        4  => "Apr", 5  => "May", 6  => "Jun",
+        7  => "Jul", 8  => "Aug", 9  => "Sep",
+        10 => "Oct", 11 => "Nov", 12 => "Dec"
+    )
+    return months[ca.data]
 end
 
-function mysum(mc::MyCalc3{Vector{Float64}})
-    result = 0.0
-    for i in mc.data
-        result += i
-    end
-    return result
-end
-
-function mysum(mc::MyCalc3)
+function convabb2(ca::Convabb)
     throw("Error")
 end
 
-data1 = [1, 2, 3, 4, 5]
-data2 = [1.1, 2.9, 3.8, 4.0, 5.3]
-data3 = ["Python", "Julia", "Go"]
+ca1 = Convabb("Nov")
+ca2 = Convabb(12)
+ca3 = Convabb(8.5)
 
-mc1 = MyCalc3(data1)
-mc2 = MyCalc3(data2)
-mc3 = MyCalc3(data3)
+println(convabb2(ca1))   # 11
+println(convabb2(ca2))   # Dec
+# println(convabb2(ca3))   Error
 
-println(mysum(mc1))         # 15
-println(mysum(mc2))         # 17.1
-# println(mysum(mc3))         Error
-
-println(typeof(mysum(mc1))) # Int64
-println(typeof(mysum(mc2))) # Float64
-# println(typeof(mysum(mc3))) Error
+println(typeof(convabb2(ca1))) # Int64
+println(typeof(convabb2(ca2))) # Float64
+# println(typeof(convabb2(ca3))) Error
