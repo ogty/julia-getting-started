@@ -1,7 +1,14 @@
 using PyCall
-
+using Dates
 
 const pydatetime = pyimport("datetime")
 
 
-println(pydatetime.datetime.now())
+pynow = pydatetime.datetime.now()
+jlnow = Dates.now()
+
+println(pynow)
+println(typeof(pynow)) # Datetime
+
+println(jlnow)
+println(typeof(jlnow)) # DateTime

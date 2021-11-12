@@ -3,17 +3,13 @@ using Cascadia
 using Plots
 using Distributions
 using StatsPlots
-using PyCall
-
-const range = py"range"
 
 
-function scraping()
+function scraping(url)
     result = []
-    url = "https://info.finance.yahoo.co.jp/ranking/?kd=1&tm=d&mk=1"
     html = parsehtml(read(download(url), String))
     sources = eachmatch(sel".greenFin", html.root)
-    for i in range(1, length(sources), 2)
+    for i in 1:2:length(sources)
         data = Gumbo.text(sources[i])
         data = parse(Float64, data)
         push!(result, data)
@@ -21,7 +17,8 @@ function scraping()
     return result
 end
 
-result = scraping()
+url = "https://info.finance.yahoo.co.jp/ranking/?kd=1&tm=d&mk=1"
+result = scraping(url)
 result = sort!(result, rev=true)
 
 bar(result,

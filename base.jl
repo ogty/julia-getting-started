@@ -145,11 +145,11 @@ println(result) # ["Boy", "Youth", "Middle age"]
 x = 10
 xtype = typeof(x)          # this
 xxtype = supertype(xtype)  # above
-xxxtype = subtypes(xxtype) # below
+# xxxtype = subtypes(xxtype) # below
 
 println("The type of this value is '$(xtype)'")
 println("The type one above '$(xtype)' is '$(xxtype)'")
-println("One type below '$(xxtype)' is '$(xxxtype)'")
+# println("One type below '$(xxtype)' is '$(subtypes(Number))'")
 # The type of this value is 'Int64'
 # The type one above 'Int64' is 'Signed'
 # One type below 'Signed' is 'Any[BigInt, Int128, Int16, Int32, Int64, Int8]'
@@ -208,3 +208,61 @@ mc = MyCalc2(data)
 
 println(mysum2(mc))  # 24
 println(mymean2(mc)) # 6.857142857142857
+
+
+# union type
+IntOrString = Union{Int, String}
+uniontype(x::IntOrString) = x
+
+uniontype("Bob") # String
+# uniontype(1.5)   Error
+
+
+# parametric type
+mutable struct MyCalc3{T}
+    data::T
+end
+
+# function mysum(mc::MyCalc3{T}) where T
+#     result = 0
+#     for i in mc.data
+#         result += i
+#     end
+#     return result
+# end
+
+function mysum(mc::MyCalc3{Vector{Int64}})
+    result = 0
+    for i in mc.data
+        result += i
+    end
+    return result
+end
+
+function mysum(mc::MyCalc3{Vector{Float64}})
+    result = 0
+    for i in mc.data
+        result += i
+    end
+    return result
+end
+
+function mysum(mc::MyCalc3)
+    throw("Error")
+end
+
+data1 = [1, 2, 3, 4, 5]
+data2 = [1.1, 2.9, 3.8, 4.0, 5.3]
+data3 = ["Python", "Julia", "Go"]
+
+mc1 = MyCalc3(data1)
+mc2 = MyCalc3(data2)
+mc3 = MyCalc3(data3)
+
+println(mysum(mc1))         # 15
+println(mysum(mc2))         # 17.1
+# println(mysum(mc3))         Error
+
+println(typeof(mysum(mc1))) # Int64
+println(typeof(mysum(mc2))) # Float64
+# println(typeof(mysum(mc3))) Error

@@ -40,10 +40,10 @@ $ jupyter notebook
 
 Julia Only
 ```
-3.578908 seconds
-2.34 M allocations: 141.620 MiB, 
-1.06% gc time, 
-3.30% compilation time
+3.515719 seconds
+2.30 M allocations: 139.313 MiB, 
+1.58% gc time, 
+3.04% compilation time
 ```
 
 +Python

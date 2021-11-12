@@ -4,6 +4,7 @@ using Plots
 @pyimport requests
 @pyimport bs4
 const range = py"range"
+const len = py"len"
 
 
 function scraping(url, class_name)
@@ -11,7 +12,7 @@ function scraping(url, class_name)
     html = requests.get(url, class_name)
     soup = bs4.BeautifulSoup(html.content, "html.parser")
     data = soup.select("[class='$(class_name)']")
-    for i in range(1, length(data), 2)
+    for i in range(1, len(data), 2)
         push!(result, parse(Float64, data[i].text))
     end
     return result
