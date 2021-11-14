@@ -46,7 +46,7 @@ function MyCalc(data)
         result = mysum() / length(data)
         return result
     end
-    function myall()
+    function addall()
         push!(Result, mysum())
         push!(Result, mymax())
         push!(Result, mymin())
@@ -57,7 +57,7 @@ function MyCalc(data)
         return Result
     end  
 
-    () -> (data; (mysum, mymax, mymin, mymean, myall, refer))
+    () -> (data; (mysum, mymax, mymin, mymean, addall, refer))
 end
 
 data = [1, 2, 3, 4, 5]
@@ -67,5 +67,5 @@ println(mycalc.mysum())  # 15
 println(mycalc.mymax())  # 5
 println(mycalc.mymin())  # 1
 println(mycalc.mymean()) # 3.0
-println(mycalc.myall())  # [15, 5, 1, 3.0]
+println(mycalc.addall()) # [15, 5, 1, 3.0]
 println(mycalc.refer())  # [15, 5, 1, 3.0]
