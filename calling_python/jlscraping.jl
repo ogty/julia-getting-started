@@ -7,8 +7,9 @@ using StatsPlots
 @time begin
     function scraping(url)
         result = []
+        classname = Cascadia.@sel_str ".greenFin"
         html = parsehtml(read(download(url), String))
-        sources = eachmatch(sel".greenFin", html.root)
+        sources = eachmatch(classname, html.root)
         for i in 1:2:length(sources)
             data = Gumbo.text(sources[i])
             data = parse(Float64, data)
@@ -28,4 +29,4 @@ bar(result,
     ylabel="Rate of increase", 
     legend=false)
 
-savefig("./img/rate_of_increase.png")
+savefig("../img/rate_of_increase.png")
