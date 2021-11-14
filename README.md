@@ -1,5 +1,7 @@
 # Julia Getting Started
 
+> Walks like Python, Runs like C
+
 [Downloads](https://julialang.org/downloads/)  
 [Documentation jp](https://mnru.github.io/julia-doc-ja-v1.0/index.html)  
 [Documentation en](https://docs.julialang.org/en/v1/)  
