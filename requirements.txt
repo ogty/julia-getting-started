@@ -12,3 +12,6 @@ DataFrames
 Lathe
 StatsModels
 GLM
+Compose
+Cairo
+Colors
