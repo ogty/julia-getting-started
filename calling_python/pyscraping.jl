@@ -1,13 +1,13 @@
+using PyCall
+using Plots
+
+@pyimport requests
+@pyimport bs4
+const range = py"range"
+const len = py"len"
+
+
 @time begin
-    using PyCall
-    using Plots
-
-    @pyimport requests
-    @pyimport bs4
-    const range = py"range"
-    const len = py"len"
-
-
     function scraping(url, class_name)
         result = []
         html = requests.get(url, class_name)

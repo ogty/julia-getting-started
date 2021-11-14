@@ -1,11 +1,10 @@
+using Gumbo
+using Cascadia
+using Plots
+using Distributions
+using StatsPlots
+
 @time begin
-    using Gumbo
-    using Cascadia
-    using Plots
-    using Distributions
-    using StatsPlots
-
-
     function scraping(url)
         result = []
         html = parsehtml(read(download(url), String))
