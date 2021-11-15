@@ -9,13 +9,27 @@ julia> ]
 (@v1.x) pkg> add Genie
 (@v1.x) pkg> # press backspace
 julia> using Genie
-julia> Genie.newapp_webservice("App_name")
+julia> Genie.newapp_webservice("ProjectName")
+```
+
+```
+ProjectName
+├── Manifest.toml
+├── Project.toml
+├── bin
+├── bootstrap.jl
+├── config
+├── genie.jl
+├── log
+├── public
+├── routes.jl
+└── src
 ```
 
 **Run**
 
 ```bash
-$ cd App_name
+$ cd ProjectName
 $ cd bin
 $ source server
 ```
