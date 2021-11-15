@@ -1,8 +1,4 @@
 module Representation
-    export BaseModel
-    export HttpUrl
-
-    # Top
     abstract type BaseModel end
 
     # Original Error
@@ -10,9 +6,12 @@ module Representation
 
     # Netowrks Model
     url = ""
+    ipv4address = ""
     mutable struct _Networks
         url::String
-        _Networks(url) = new(url)
+        ipv4address::String
+
+        _Networks(url="", ipv4address="") = new(url, ipv4address)
     end
     mutable struct HttpUrl <: BaseModel
         network::_Networks
@@ -21,10 +20,20 @@ module Representation
             new(network)
         end
     end
+    mutable struct IPv4Address <: BaseModel
+        network::_Networks
+        function IPv4Address(data, network::_Networks=_Networks(data))
+            splited = split(data, ".")
+            valid = [parse(Int64, b) for b in splited]
+            valid = [b for b in valid if b >= 0 & b<=255]
+            length(splited) == 4 & length(valid) == 4 || error(ValidationError)
+            new(network)
+        end
+    end
 end
 
 
-import .Representation: BaseModel, HttpUrl
+import .Representation: BaseModel, HttpUrl, IPv4Address
 
 urls = ["http://www.google.com/", "https://github.com/", "/support", "/profile"]
 validated = []
@@ -33,7 +42,23 @@ for url in urls
         HttpUrl(url)::BaseModel
         push!(validated, url)
     catch
+        println("Error: $url")
     end
 end
+println(validated)
 
+
+println()
+
+
+ipv4s = ["192.168.100.1", "192.168.1"]
+validated = []
+for ipv4 in ipv4s
+    try
+        IPv4Address(ipv4)::BaseModel
+        push!(validated, ipv4)
+    catch
+        println("Error: $ipv4")
+    end
+end
 println(validated)
