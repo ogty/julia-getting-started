@@ -1,4 +1,6 @@
 module Representation
+    using URIs
+    
     abstract type BaseModel end
 
     # Original Error
@@ -14,7 +16,7 @@ module Representation
         ipv6address::String
 
         _Networks(
-            url="",
+            url="", 
             ipv4address="",
             ipv6address=""
             ) = begin new(
@@ -22,13 +24,16 @@ module Representation
                 ipv4address,
                 ipv6address
                 )
-                end
+            end
     end
     mutable struct HttpUrl <: BaseModel
         network::_Networks
         function HttpUrl(data, network::_Networks=_Networks(url))
             startswith(data, "http") || error(ValidationError)
             new(network)
+            uri = URI(data)
+            result = (sheme=uri.scheme, host=uri.host, path=uri.path, query=uri.query)
+            return result
         end
     end
     mutable struct IPv4Address <: BaseModel
@@ -52,34 +57,3 @@ module Representation
         end
     end
 end
-
-
-import .Representation: BaseModel, HttpUrl, IPv4Address
-
-urls = ["http://www.google.com/", "https://github.com/", "/support", "/profile"]
-validated = []
-for url in urls
-    try
-        HttpUrl(url)::BaseModel
-        push!(validated, url)
-    catch
-        println("Error: $url")
-    end
-end
-println(validated)
-
-
-println()
-
-
-ipv4s = ["192.168.100.1", "192.168.1"]
-validated = []
-for ipv4 in ipv4s
-    try
-        IPv4Address(ipv4)::BaseModel
-        push!(validated, ipv4)
-    catch
-        println("Error: $ipv4")
-    end
-end
-println(validated)
