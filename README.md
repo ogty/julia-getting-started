@@ -23,7 +23,7 @@ $ julia install.jl
 
 Setup
 
-```bash
+```julia
 $ julia
 julia> ]
 (@v1.x) pkg> add IJulia

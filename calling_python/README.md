@@ -2,7 +2,7 @@
 
 Setup
 
-```bash
+```julia
 $ julia
 julia> ]
 (@v1.x) pkg> add PyCall
@@ -13,7 +13,7 @@ julia> Pkg.build("PyCall")
 
 If your environment is Anaconda
 
-```bash
+```julia
 $ julia
 julia> ]
 (@v1.x) pkg> add Conda

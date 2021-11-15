@@ -7,4 +7,4 @@ route("/") do
     html("<h1>Hello Julia!</h1>")
 end
 
-Genie.startup()
+Genie.startup(port=8000)
