@@ -8,7 +8,7 @@
 
 ***
 
-### Example docstring
+## Example docstring
 
 ```julia-repl
 $ julia
