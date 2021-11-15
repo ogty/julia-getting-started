@@ -1,26 +1,39 @@
-abstract type BaseModel end
+module Representation
+    export BaseModel
+    export HttpUrl
 
+    # Top
+    abstract type BaseModel end
 
-mutable struct Networks
-    url
-    Networks(url="") = new(url)
-end
-mutable struct HttpUrl <: BaseModel
-    network::Networks
-    function HttpUrl(data, network::Networks=Networks(url))
-        startswith(data, "http") || error("ValidationError")
-        new(network)
+    # Original Error
+    struct ValidationError <: Exception end
+
+    # Netowrks Model
+    url = ""
+    mutable struct _Networks
+        url::String
+        _Networks(url) = new(url)
+    end
+    mutable struct HttpUrl <: BaseModel
+        network::_Networks
+        function HttpUrl(data, network::_Networks=_Networks(url))
+            startswith(data, "http") || error(ValidationError)
+            new(network)
+        end
     end
 end
 
 
+import .Representation: BaseModel, HttpUrl
 
-url = "https://github.com/"
-# url = "/github.com/"
+urls = ["http://www.google.com/", "https://github.com/", "/support", "/profile"]
+validated = []
+for url in urls
+    try
+        HttpUrl(url)::BaseModel
+        push!(validated, url)
+    catch
+    end
+end
 
-# type1
-HttpUrl(url)::BaseModel
-
-# type2
-function MyValidator(self::BaseModel) end
-MyValidator(HttpUrl(url))
+println(validated)
