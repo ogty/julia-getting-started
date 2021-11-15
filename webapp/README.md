@@ -3,7 +3,7 @@
 ***
 
 **Create Project**
-```julia
+```julia-repl
 $ julia
 julia> ]
 (@v1.x) pkg> add Genie

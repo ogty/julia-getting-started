@@ -35,7 +35,7 @@ $ julia install.jl
 
 Setup
 
-```julia
+```julia-repl
 $ julia
 julia> ]
 (@v1.x) pkg> add IJulia

@@ -1,4 +1,4 @@
-```
+```julia-repl
 julia> using Pkg; Pkg.build("")
 ```
 
