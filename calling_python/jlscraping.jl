@@ -7,9 +7,8 @@ using StatsPlots
 @time begin
     function scraping(url)
         result = []
-        classname = Cascadia.@sel_str ".greenFin"
         html = parsehtml(read(download(url), String))
-        sources = eachmatch(classname, html.root)
+        sources = eachmatch(sel".greenFin", html.root)
         for i in 1:2:length(sources)
             data = Gumbo.text(sources[i])
             data = parse(Float64, data)
