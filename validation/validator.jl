@@ -1,13 +1,12 @@
 module Representation
-    abstract type BaseModel end
-    
     using URIs
-
+    
     export @HttpUrl
     export @IPv4Address
     export HttpUrl
     export IPv4Address
 
+    abstract type BaseModel end
     struct ValidationError <: Exception end
 
     const url = ""
