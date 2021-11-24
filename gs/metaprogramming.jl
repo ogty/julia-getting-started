@@ -35,3 +35,10 @@ macro convabb(month)
 end
 
 println(@convabb 11) # Nov
+
+
+macro add(num1, num2)
+    num1 + num2
+end
+
+println(@add 1 2) # 3
