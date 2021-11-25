@@ -1,1 +1,1 @@
-using Pkg; Pkg.add(open(f->readlines(f), "./requirements.txt"))
+using Pkg; Pkg.add("URIs")
