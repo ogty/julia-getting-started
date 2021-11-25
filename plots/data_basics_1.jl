@@ -66,8 +66,8 @@ println(size(df))           # (11, 8) : line, column
 df.id = 1:nrow(df)
 
 
-xlim = collect(extrema(Matrix(select(df, r"x")))  .+ (-1, 1))
-ylim = collect(extrema(Matrix(select(df, r"y")))  .+ (-1, 1))
+xlim = collect(extrema(Matrix(select(df, r"x"))) .+ (-1, 1))
+ylim = collect(extrema(Matrix(select(df, r"y"))) .+ (-1, 1))
 
 fig, axs = plt.subplots(2, 2)
 fig.tight_layout(pad=4.0)
