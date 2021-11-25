@@ -243,7 +243,6 @@ function convabb2(ca::Convabb{String})::Int64
     "Jul" => 7,  "Aug" => 8,  "Sep" => 9,
     "Oct" => 10, "Nov" => 11, "Dec" => 12
     )
-
     return months[ca.data]
 end
 function convabb2(ca::Convabb{Int64})::String
