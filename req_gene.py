@@ -1,4 +1,14 @@
-# Requirements.txt Generator for Julia
+"""
+
+[Requirements.txt Generator for Julia]
+The method of calling it with "import" is not currently supported.
+This is because I don't use it.
+
+[Usage]
+$ python3 req_gene.py <Directory name>
+
+"""
+
 import os
 import sys
 
@@ -67,6 +77,4 @@ class RequirementsGenerator:
             data = "\n".join(module_list)
             f.write(data)
 
-#  - Usage - 
-# $ python3 req_gene.py <Directory name>
 RequirementsGenerator(sys.argv[1])
