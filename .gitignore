@@ -1,4 +1,4 @@
 *.bat
 *.sh
 .ipynb_checkpoints
-memo.md
+.DS_Store
