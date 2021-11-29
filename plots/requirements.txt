@@ -1,0 +1,6 @@
+CSV
+DataFrames
+Distributions
+GLM
+Plots
+PyPlot
