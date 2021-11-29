@@ -5,6 +5,7 @@ using ForwardDiff
 
 function gradient_method_1dim(f, x_init, η, maxiter)
     fx(x) = ForwardDiff.derivative(f, x)
+    
     x_seq = Array{typeof(x_init), 1}(undef, maxiter)
     x_seq[1] = x_init
     
