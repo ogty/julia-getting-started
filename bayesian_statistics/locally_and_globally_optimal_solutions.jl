@@ -37,7 +37,10 @@ axes[2].plot(f_seq_b)
 axes[2].set_xlabel("iteration"), axes[2].set_ylabel("f")
 axes[2].set_title("f(x) (b)")
 axes[2].grid()
+
 tight_layout()
+savefig("../img/optimal_solutions_1.png")
+
 
 xs = range(-1, 1, length=100)
 
@@ -58,3 +61,4 @@ axes[2].set_title("initial value b")
 axes[2].legend()
 
 tight_layout()
+savefig("../img/optimal_solutions_2.png")
