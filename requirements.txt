@@ -8,8 +8,10 @@ Dates
 Distributions
 FileIO
 Flux
+ForwardDiff
 GLM
 Genie
+Genie.Renderer,
 GraphPlot
 Gumbo
 JSON
@@ -22,5 +24,6 @@ Random
 SimpleWeightedGraphs
 Statistics
 StatsPlots
+URIs
 VegaDatasets
 VegaLite
