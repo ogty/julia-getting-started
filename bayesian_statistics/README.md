@@ -2,7 +2,18 @@
 
 ### Frequently used unicode characters
 
- - ₁
- - ₂
- - ∇
- - η
+```
+ ₁
+```
+
+```
+ ₂
+```
+
+```
+ ∇
+```
+
+```
+η
+```
