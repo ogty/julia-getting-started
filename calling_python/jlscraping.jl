@@ -4,6 +4,7 @@ using Plots
 using Distributions
 using StatsPlots
 
+
 @time begin
     function scraping(url)
         result = []
