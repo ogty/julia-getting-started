@@ -30,10 +30,12 @@ x_seq_b = gradient_method_1dim(f_complex, x_init_b, η, maxiter)
 f_seq_b = f_complex.(x_seq_b)
 
 fig, axes = subplots(2, 1, figsize=(8, 4))
+
 axes[1].plot(f_seq_a)
 axes[1].set_xlabel("iteration"), axes[1].set_ylabel("f")
 axes[1].set_title("f(x) (a)")
 axes[1].grid()
+
 axes[2].plot(f_seq_b)
 axes[2].set_xlabel("iteration"), axes[2].set_ylabel("f")
 axes[2].set_title("f(x) (b)")
