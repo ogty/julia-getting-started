@@ -1,0 +1,1 @@
+# Data Type Details (Optional For Now)## Basic Data Types i = 5 f = 15.0i = Float32(5)typeof(i)## Further Details c = 1 + 3*imc = 1 + 3imtypeof(c)c = Complex{Float64}(1 + 3im)typeof(c)A = [1, 2, 4]A = Float64[1, 2, 5]A = Complex{Float64}[1, 2, 5]    # Just wanted to show you this weird syntax isa(1., Int64)isa(1., Float64)

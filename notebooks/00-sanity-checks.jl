@@ -1,0 +1,1 @@
+# Check Julia Install s = "hey "s ^ 3  # just to make sure we're writing Julia and not python! versioninfo()
