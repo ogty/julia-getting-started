@@ -4,10 +4,10 @@ import json
 
 all_file = []
 
-parent: list = os.listdir("C:\\Users\\dadad\\Desktop\\GettingStarted\\jlgs\\notebooks")
-files = [f for f in parent if os.path.isfile(os.path.join("C:\\Users\\dadad\\Desktop\\GettingStarted\\jlgs\\notebooks", f))]
+parent: list = os.listdir("C:\\Users\\dadad\\Desktop\\GettingStarted\\jlgs\\ipynb")
+files = [f for f in parent if os.path.isfile(os.path.join("C:\\Users\\dadad\\Desktop\\GettingStarted\\jlgs\\ipynb", f))]
 filtered_files_path = list(filter(lambda path: path.endswith("ipynb"), files))
-file_full_path = list(map(lambda path: os.path.join("C:\\Users\\dadad\\Desktop\\GettingStarted\\jlgs\\notebooks", path), filtered_files_path))
+file_full_path = list(map(lambda path: os.path.join("C:\\Users\\dadad\\Desktop\\GettingStarted\\jlgs\\ipynb", path), filtered_files_path))
 all_file += file_full_path
 
 print(all_file)
