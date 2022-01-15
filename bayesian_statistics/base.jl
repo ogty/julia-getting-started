@@ -38,7 +38,7 @@ for i in 1:10
 end
 
 myinv(x) = 1/x
-myinv(3)
+println(myinv(3))
 
 function myinv(x)
     return 1/x
@@ -59,20 +59,24 @@ g = randn(3)
 A = [1 2 3 4;
      5 6 7 8]
 B = ones(2, 4)
-size(A)
-length(A)
-A[2,1]
-A[2,:]
-A[:,1]
-A[:, 1:3]
-[2*i for i in 1:5]
-[i*j for i in i:3, j in 1:4]
+println(size(A))
+println(length(A))
+
+println(A[2,1]
+println(A[2,:]
+println(A[:,1])
+println(A[:, 1:3])
+
+println([2*i for i in 1:5])
+println([i*j for i in i:3, j in 1:4]
+
 params = (1, 2, 3)
+
 f(a, b, c) = a + b + c
 f(params...)
 
 a = [1,2,3]
-a .+ 1
+println(a .+ 1)
 function add_one(x)
     x + 1
 end
@@ -93,11 +97,14 @@ end
 mean([1,2,3,4,5])
 using Pkg
 Pkg.add("Statistics")
+
 using Statistics
 mean([1,2,3,4,5])
+
 using PyPlot
 Y1 = [1,7,11,13,15,16]
 Y2 = [15,3,13,2,7,1]
+
 fig, ax = subplots()
 ax.plot(Y1)
 ax.plot(Y2)
@@ -179,6 +186,169 @@ tight_layout()
 
 
 a = [1, 2, 3]
-2 * A
+println(2 * A)
 b = [4, 5, 6]
-a + b
+println(a + b)
+
+println(a .*b)
+sum(a .* b)
+println(a' * b)
+
+A = [1 2 3;
+     4 5 6]
+B = [10 20 30;
+     40 50 60]
+println(A + B)
+
+A = [1 2;
+     3 4;
+     5 6]
+B = [10 20 30 40;
+     50 60 70 80]
+C = A + B
+
+M = size(A, 1)
+N = size(B, 2)
+
+C = [sum(A[i,:] .* B[:,j]) for i in 1:M, j in 1:N]
+
+println(B * A)
+
+A = [1 2;
+     3 4;
+     5 6]
+I = [1 0 0;
+     0 1 0;
+     0 0 1]
+println(I * A)
+
+A = [1 2 3;
+     4 5 6]
+println(A')
+
+a = [1, 2, 3]
+b = [5, 6]
+println(a * b')
+
+f2(x, y) = 2*x + y
+f2.(a, b')
+
+A = [1 2;
+     3 4]
+B = inv(A)
+
+println(A * B)
+
+println(B * A)
+
+println(B)
+A = Rational{Int}[1 2;
+                  3 4]
+B = inv(A)
+println(A * B)
+println(B * A)
+
+A = Rational{Int}[1 2;
+                  3 4]
+sol = inv(A) * [-1, 1]
+
+using Statistics
+
+X = rand(5)
+Y = rand(2, 5)
+
+println(sum(X))
+println(mean(X))
+
+print(sum(Y))
+print(sum(Y, dims=1))
+print(sum(Y, dims=2))
+print(mean(Y))
+print(mean(Y, dims=1))
+print(mean(Y, dims=2))
+
+print(std(X))
+print(std(X).^2)
+print(var(X))
+
+cov(Y, dims=1)
+cov(Y, dims=2)
+
+using Distributions
+
+μ = 1.5
+σ = 2.0
+Z = rand(Normal(μ, σ), 10000)
+pritnln(Z)
+
+println(mean(Z))
+print(std(Z))
+
+using PyPlot
+
+f(x) = -(x + 1)*(x - 1)
+h = 1.0e-10
+f'(a) = (f(a + h) - f(a)) / h
+xs = range(-1, 1, length=100)
+fig, axes = subplots(2, 1, figsize=(4, 6))
+
+axes[1].plot(xs, f.(xs), "b")
+axes[1].grid()
+axes[1].set_xlabel("x")
+axes[1].set_ylabel("y")
+axes[1].set_title("function f(x)")
+
+axes[2].plot(xs, f.(xs), "r")
+axes[2].grid()
+axes[2].set_xlabel("x")
+axes[2].set_ylabel("y")
+axes[2].set_title("derivative f'(x)")
+
+tight_layout()
+
+L = 10
+
+XS₁ = range(-1, 1, length=L)
+XS₂ = range(-1, 1, length=L)
+
+f₂(x) = -(x .+ 1)'*(x .- 1)
+∇f₂(x) = -2x
+
+fig, axes = subplots(1, 2, figsize=(8, 4))
+
+cs = axes[1].contour(XS₁, XS₂, [f₂([X₁, X₂]) for X₁ in XS₁, X₂ in XS₂])
+axes[1].clabel(cs, inline=true)
+axes[1].set_xlabel("X₁"), axes[1].set_ylabel("X₂")
+axes[1].set_title("f₂(x)")
+
+vec1 = [∇f₂([X₁, X₂])[1] for X₁ in XS₁, X₂ in XS₂]
+vec2 = [∇f₂([X₁, X₂])[2] for X₁ in XS₁, X₂ in XS₂]
+
+axes[2].quiver(repeat(XS₁, 1, L), repeat(XS₂', L, 1), vec1, vec2)
+axes[2].set_xlabel("X₁"), axes[2].set_ylabel("X₂")
+axes[2].set_title("∇f₂(x)")
+
+tight_layout()
+
+using ForwardDiff
+
+f(x) = -(x + 1)*(x - 1)
+
+f'(x) = ForwardDiff.derivative(f, x)
+xs = range(-1, 1, length=100)
+
+fig, axes = subpots(2, 1, figsize(4, 6))
+
+axes[1].plot(xs, f.(xs), "b")
+axes[1].grid()
+axes[1].set_xlabel("x")
+axes[1].set_ylabel("y")
+axes[1].set_title("function f(x)")
+
+axes[2].plot(xs, f'.(xs), "r")
+axes[2].grid()
+axes[2].set_xlabel("x")
+axes[2].set_ylabel("y")
+axes[2].set_title("derivative f'(x)")
+
+tight_layout()
