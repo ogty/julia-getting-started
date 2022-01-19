@@ -308,23 +308,23 @@ tight_layout()
 
 L = 10
 
-XS₁ = range(-1, 1, length=L)
-XS₂ = range(-1, 1, length=L)
+xs₁ = range(-1, 1, length=L)
+xs₂ = range(-1, 1, length=L)
 
 f₂(x) = -(x .+ 1)'*(x .- 1)
 ∇f₂(x) = -2x
 
 fig, axes = subplots(1, 2, figsize=(8, 4))
 
-cs = axes[1].contour(XS₁, XS₂, [f₂([X₁, X₂]) for X₁ in XS₁, X₂ in XS₂])
+cs = axes[1].contour(xs₁, xs₂, [f₂([X₁, X₂]) for X₁ in xs₁, X₂ in xs₂])
 axes[1].clabel(cs, inline=true)
 axes[1].set_xlabel("X₁"), axes[1].set_ylabel("X₂")
 axes[1].set_title("f₂(x)")
 
-vec1 = [∇f₂([X₁, X₂])[1] for X₁ in XS₁, X₂ in XS₂]
-vec2 = [∇f₂([X₁, X₂])[2] for X₁ in XS₁, X₂ in XS₂]
+vec1 = [∇f₂([X₁, X₂])[1] for X₁ in xs₁, X₂ in xs₂]
+vec2 = [∇f₂([X₁, X₂])[2] for X₁ in xs₁, X₂ in xs₂]
 
-axes[2].quiver(repeat(XS₁, 1, L), repeat(XS₂', L, 1), vec1, vec2)
+axes[2].quiver(repeat(xs₁, 1, L), repeat(xs₂', L, 1), vec1, vec2)
 axes[2].set_xlabel("X₁"), axes[2].set_ylabel("X₂")
 axes[2].set_title("∇f₂(x)")
 
@@ -350,5 +350,157 @@ axes[2].grid()
 axes[2].set_xlabel("x")
 axes[2].set_ylabel("y")
 axes[2].set_title("derivative f'(x)")
+
+tight_layout()
+
+
+fig, ax = subplots()
+xs = range(0, 2pi*3, length=100)
+
+ax.plot(xs, sin.(xs), color="b", label="sin(x)")
+
+ax.plot(xs, map(x -> ForwardDiff.derivative(sin, x), xs), color="r", label="sin'(x)")
+ax.grid()
+ax.set_xlabel("x")
+ax.set_ylabel("y")
+ax.legend()
+
+
+sig(x) = 1 / (1 + exp(-x))
+
+xs = range(-5, +5, length=100)
+fig, axes = subplots(2, 1, figsize=(4, 6))
+
+axes[1].plot(xs, sig.(xs), color="b")
+axes[1].set_xlabel("x")
+axes[1].set_ylabel("y")
+axes[1].set_title("sig(x)")
+axes[1].grid()
+
+axes[2].plot(xs, map(x -> ForwardDiff.derivative(sig, x), xs), color="r")
+axes[2].set_xlabel("x")
+axes[2].set_ylabel("y")
+axes[2].set_title("sig'(x)")
+axes[2].grid()
+
+tight_layout()
+
+
+x_opt = 0.50
+f(x) = -2(x - x_opt)^2
+
+fig, ax = subplots()
+xs = range(-3, 3, length=100)
+ax.plot(xs, f.(xs), label="function")
+ax.plot(x_opt, f(x_opt), "rx", label="optimal")
+ax.set_xlabel("x")
+ax.set_ylabel("y")
+ax.grid()
+ax.legend()
+
+
+function gradient_method_idim(f, x_init, η, maxiter)
+    x_seq = Array{typeof(x_init), 1}(undef, maxiter)
+    f'(x) = ForwardDiff.derivative(f, x)
+    x_seq[1] = x_init
+    for i in 2:maxiter
+        x_seq[i] = x_seq[i-1] + η*f'(x_seq[i-1])
+    end
+    x_seq
+end
+
+x_init = -2.5
+maxiter = 20
+η = 0.1
+
+x_seq = gradient_method_idim(f, x_init, η, maxiter)
+f_seq = f.(x_seq)
+
+
+fig, ax = subplots(figsize=(8, 3))
+ax.plot(f_seq)
+ax.set_xlabel("iteration")
+ax.set_ylabel("y")
+ax.grid()
+
+fig, axes = subplots(1, 2, figsize=(8, 3))
+
+axes[1].plot(xs, f.(xs), label="function")
+axes[1].plot(x_seq, f.(x_seq), "bx", label="sequence")
+
+axes[1].plot(x_opt, f(x_opt), "rx", label="optimal")
+axes[1].set_xlabel("x")
+axes[1].set_ylabel("y")
+axes[1].grid()
+axes[1].legend()
+
+axes[2].plot(1:maxiter, x_seq, "bx-", label="sequence")
+axes[2].set_xlim([0, maxiter])
+axes[2].set_xlabel("iteration")
+axes[2].set_ylabel("x")
+axes[2].grid()
+axes[2].legend()
+
+tight_layout()
+
+
+x_opt = [0.50, 0.25]
+f₂(x) = -sqrt(0.05 + (x[1] - x_opt[1])^2) - (x[2] - x_opt[2])^2
+
+L = 100
+xs₁ = range(-1, 1, length=L)
+xs₂ = range(-1, 1, length=L)
+fig, ax = subplots()
+ax.contour(xs₁, xs₂, [f₂([x₁, x₂]) for x₁ in xs₁, x₂ in xs₂]')
+ax.plot(x_opt[1], x_opt[2], color="r", marker="x", label="optimal")
+ax.set_xlabel("x₁")
+ax.set_ylabel("x₂")
+ax.grid()
+ax.legend()
+
+
+function gradient_method(f, x_init, η, maxiter)
+    x_seq = Array{typeof(x_init[1]), 2}(undef, length(x_init), maxiter)
+    ∇f(x) = ForwardDiff.gradient(f, x)
+    x_seq[:, 1] = x_init
+
+    for i in 2:maxiter
+        x_seq[:, i] = x_seq[:, i - 1] + η * ∇f(f_seq[:, i - 1])
+    end
+    x_seq
+end
+
+x_init = [-0.75, -0.75]
+maxiter = 20
+η = 0.1
+
+x_seq = gradient_method(f₂, x_init, η, maxiter)
+f_seq = [f₂(x_seq[:, i]) for i in 1:maxiter]
+
+
+fig, ax = subplots(figsize=(8, 3))
+ax.plot(f_seq)
+ax.set_xlabel("iteration")
+ax.set_ylabel("f")
+ax.grid()
+
+fig, axes = subplots(1, 2, figsize=(8, 3))
+
+axes[1].contour(xs₁, xs₂, [f₂([x₁, x₂]) for x₁ in xs₁, x₂ in xs₂]')
+axes[1].plot(x_seq[1, :], x_seq[2, :], ls="--", marker="x", label="sequence")
+axes[1].plot(x_opt[1], x_opt[2], ls="--", marker="x", label="sequence")
+axes[1].set_xlabel("iteration")
+axes[1].set_ylabel("x₂")
+axes[1].grid()
+axes[1].legend()
+
+axes[2].plot(1:maxiter, x_seq[1, :], color="b", marker="o", label="x[1]")
+axes[2].plot(1:maxiter, x_seq[2, :], color="r", marker="^", label="x[2]")
+axes[2].hlines(x_opt[2], 0, maxiter, color="b", marker="--", label="x_opt[1]")
+axes[2].hlines(x_opt[2], 0, maxiter, color="r", marker="-", label="x_opt[2]")
+axes[2].set_xlabel("iteration")
+axes[2].set_ylabel("x₁, x₂")
+axes[2].grid()
+axes[2].legend()
 
 tight_layout()
