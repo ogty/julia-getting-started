@@ -13,6 +13,7 @@ function mysum1(mc::MyCalc1{T}) where T
     end
     return result
 end
+
 function mysum2(mc::MyCalc2{T, U}) where {T, U}
     result = 0
     for (i, j) in zip(mc.data1, mc.data2)

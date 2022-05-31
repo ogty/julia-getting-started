@@ -2,11 +2,11 @@ module MySeries
     export Calc
     export Convabb
     export convabb
-    
 
     mutable struct Convabb{T}
         data::T
     end
+
     function convabb(ca::Convabb{String})::Int64
         months = Dict{String, Int64}(
         "Jan" => 1,  "Feb" => 2,  "Mar" => 3,
@@ -17,6 +17,7 @@ module MySeries
     
         return months[ca.data]
     end
+
     function convabb(ca::Convabb{Int64})::String
         months = Dict{Int64, String}(
             1  => "Jan", 2  => "Feb", 3  => "Mar",
@@ -34,14 +35,15 @@ module MySeries
     module Calc
         export mysum
 
-        function mysum(data::Vector{Int64})
+        function mysum(data::Vector{Int64})::Int64
             result = 0
             for i in data
                 result += i
             end
             return result
         end
-        function mymean(data::Vector{Int64})
+
+        function mymean(data::Vector{Int64})::Float64
             return MyCalc.mysum(data) / length(data)
         end
     end

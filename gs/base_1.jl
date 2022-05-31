@@ -49,6 +49,7 @@ function vectorminmax(data::Vector{Int64})
             min = i
         end
     end
+
     return min, max
 end
 
@@ -87,6 +88,7 @@ function convabb1(month=nowmonth, etc...)
     if typeof(month) == String
         month = parse(Int, month)
     end
+
     for i in etc
         push!(result, months[i])
     end
@@ -178,7 +180,7 @@ struct MyCalc
     data::Vector{Int64}
 end
 
-function mysum(mc::MyCalc)
+function mysum(mc::MyCalc)::Int64
     result = 0
     for i in mc.data
         result += i
@@ -186,7 +188,7 @@ function mysum(mc::MyCalc)
     return result
 end
 
-function mymean(mc::MyCalc)
+function mymean(mc::MyCalc)::Float64
     result = mysum(mc) / length(mc.data)
     return result
 end
@@ -202,7 +204,7 @@ mutable struct MyCalc2
     data::Vector{Int64}
 end
 
-function mysum2(mc::MyCalc2)
+function mysum2(mc::MyCalc2)::Int64
     result = 0
     for i in mc.data
         result += i
@@ -211,7 +213,7 @@ function mysum2(mc::MyCalc2)
     return result
 end
 
-function mymean2(mc::MyCalc2)
+function mymean2(mc::MyCalc2)::Float64
     result = mysum2(mc) / length(mc.data)
     return result
 end

@@ -1,12 +1,17 @@
 """
+from typing import List
+
+
 class MyCalc:
-    def __init__(self, data):
+    def __init__(self, data: List[int]) -> None:
         self.data = data
-    def mysum(self):
+
+    def mysum(self) -> int:
         result = 0
         for i in self.data:
             result += i
         return result
+
 
 data = [1, 2, 3, 4, 5]
 mycalc = MyCalc(data)
@@ -14,7 +19,7 @@ mycalc = MyCalc(data)
 print(mycalc.mysum()) # 15
 """
 
-function MyCalc(data)
+function MyCalc(data::Vector{Int64})
     Result = []
 
     function mysum()
@@ -24,6 +29,7 @@ function MyCalc(data)
         end
         return result
     end
+
     function mymax()
         result = data[1]
         for i in data
@@ -33,6 +39,7 @@ function MyCalc(data)
         end
         return result
     end
+
     function mymin()
         result = data[1]
         for i in data
@@ -42,10 +49,12 @@ function MyCalc(data)
         end
         return result
     end
+
     function mymean()
         result = mysum() / length(data)
         return result
     end
+
     function addall()
         push!(Result, mysum())
         push!(Result, mymax())
@@ -53,6 +62,7 @@ function MyCalc(data)
         push!(Result, mymean())
         return Result
     end
+
     function refer()
         return Result
     end  

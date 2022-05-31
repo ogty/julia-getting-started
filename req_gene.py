@@ -15,12 +15,14 @@ import sys
 
 # Module Extractor
 class ModuleExtractor:
-    def julia(self, source) -> list:
+
+    def julia(self, source: str) -> list:
         result = list()
         source_list = source.split("\n")
         for line in source_list:
             if line.startswith("using"):
                 module = line.split(" ")[1]
+
                 if not module.startswith("."):
                     module = module.split(".")[0]
                     module = module.replace(":", "").replace(";", "")
@@ -68,6 +70,7 @@ class RequirementsGenerator:
         for file_path in self.all_file:
             with open(file_path, "r", encoding="utf-8") as f:
                 source = f.read()
+
             module_list += getattr(module_extractor, "julia")(source)
 
         # Generate
@@ -76,5 +79,6 @@ class RequirementsGenerator:
         with open(f"{self.base_dir}/requirements.txt", "w", encoding="utf-8") as f:
             data = "\n".join(module_list)
             f.write(data)
+
 
 RequirementsGenerator(sys.argv[1])

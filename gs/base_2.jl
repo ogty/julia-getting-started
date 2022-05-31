@@ -80,14 +80,15 @@ println(std(data7))  # 1.5811388300841898
 module MyCalc
     export mysum
 
-    function mysum(data::Vector{Int64})
+    function mysum(data::Vector{Int64})::Int64
         result = 0
         for i in data
             result += i
         end
         return result
     end
-    function mymean(data::Vector{Int64})
+
+    function mymean(data::Vector{Int64})::Float64
         return MyCalc.mysum(data) / length(data)
     end
 end
